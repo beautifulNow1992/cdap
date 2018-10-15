@@ -39,21 +39,23 @@ suppliers) of components may work, but have not necessarily been either tested o
 confirmed compatible.
 
 UI Customization
----------------------------------
-Certain properties in the UI can be customized. The ``ui/server/config/themes/default.json`` file contains these properties, along with their default values. As of version 1.0, here is the list of properties that can be customized, and their expected values:
+----------------
+Certain features in the UI can be customized. The ``ui/server/config/themes/default.json`` file contains these
+features, along with their default values. As of version 1.0, here is the list of features that can be customized,
+and their expected values:
 
 .. list-table::
-   :widths: 15 30 20 30
+   :widths: 15 20 30
    :header-rows: 1
 
    * - Property Name
-     - Property Attributes
      - Description
      - Example
 
    * - ``brand-primary-color``
-     - No attributes
-     - The brand color to be used throughout UI. Can be in hex/rgb/rgba format.
+     - The primary brand color to be used across UI. This is most often used as the color of the 'active' text selection
+       e.g. the active connection in Preparation app. This will also determine the color of some icons, e.g. the loading
+       icon used across UI. Can be in hex/rgb/rgba format.
      - .. container:: highlight
 
         .. parsed-literal::
@@ -62,8 +64,7 @@ Certain properties in the UI can be customized. The ``ui/server/config/themes/de
 
 
    * - ``navbar-color``
-     - No attributes
-     - The background color of the top nav bar. Can be in hex/rgb/rgba format.
+     - The background color of the top navigation bar. Can be in hex/rgb/rgba format.
      - .. container:: highlight
 
         .. parsed-literal::
@@ -71,7 +72,6 @@ Certain properties in the UI can be customized. The ``ui/server/config/themes/de
           "navbar-color": "rgba(51, 51, 51, 1)"
 
    * - ``font-family``
-     - No attributes
      - Comma-separated list of font families to be used in UI, in decreasing order of priority.
      - .. container:: highlight
 
@@ -80,7 +80,6 @@ Certain properties in the UI can be customized. The ``ui/server/config/themes/de
           "font-family": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
 
    * - ``product-name``
-     - No attributes
      - The product name to be used in UI. This will displayed on page titles, 'Welcome' modal, and the 'About' modal.
      - .. container:: highlight
 
@@ -89,22 +88,18 @@ Certain properties in the UI can be customized. The ``ui/server/config/themes/de
           "product-name": "CDAP"
 
    * - ``product-description``
-     - No attributes
      - The product description to be used in 'Welcome' modal.
      - .. container:: highlight
 
         .. parsed-literal::
 
-          "product-description": "CDAP is an open source framework that simplifies data application development, data integration, and data management."
+          "product-description": "CDAP is an open source framework that simplifies data application development, data
+          integration, and data management."
 
    * - ``product-logo-navbar``
-     - - ``type``:
-         - ``link``: user is expected to provide a link to the icon image in the ``url`` attribute inside the ``arguments`` map. Path should be from ``ui/cdap_dist`` directory.
-         - ``inline``: user is expected to provide a base64 encoded image in the ``data`` attribute inside the ``arguments`` map.
-       - ``arguments``:
-         - ``url``
-         - ``data``
-     - The logo to be displayed on the nav bar.
+     - The logo to be displayed on the navigation bar. Example formatting can be found at :ref:`Plugin Presentation:
+       Icon <plugins-presentation-icon>`. If ``type`` argument is ``link``, then ``url`` path should be from
+       ``ui/cdap_dist``
      - .. container:: highlight
 
         .. parsed-literal::
@@ -118,13 +113,9 @@ Certain properties in the UI can be customized. The ``ui/server/config/themes/de
 
 
    * - ``product-logo-about``
-     - - ``type``:
-         - ``link``: user is expected to provide a link to the icon image in the ``url`` attribute inside the ``arguments`` map. Path should be from ``ui/cdap_dist`` directory.
-         - ``inline``: user is expected to provide a base64 encoded image in the ``data`` attribute inside the ``arguments`` map.
-       - ``arguments``:
-         - ``url``
-         - ``data``
-     - The logo to be displayed in the 'About' modal.
+     - The logo to be displayed in the 'About' modal. Example formatting can be found at :ref:`Plugin Presentation:
+       Icon <plugins-presentation-icon>`. If ``type`` argument is ``link``, then ``url`` path should be from
+       ``ui/cdap_dist``
      - .. container:: highlight
 
         .. parsed-literal::
@@ -137,7 +128,6 @@ Certain properties in the UI can be customized. The ``ui/server/config/themes/de
           }
 
    * - ``favicon-path``
-     - No attributes
      - Path to the image to be used as favicon.
      - .. container:: highlight
 
@@ -147,7 +137,6 @@ Certain properties in the UI can be customized. The ``ui/server/config/themes/de
 
 
    * - ``footer-text``
-     - No attributes
      - Text content to displayed on the footer component.
      - .. container:: highlight
 
@@ -156,7 +145,6 @@ Certain properties in the UI can be customized. The ``ui/server/config/themes/de
           "footer-text": "Licensed under the Apache License, Version 2.0"
 
    * - ``footer-link``
-     - No attributes
      - Link to route to when user clicks on footer text.
      - .. container:: highlight
 
@@ -165,8 +153,7 @@ Certain properties in the UI can be customized. The ``ui/server/config/themes/de
           "footer-link": "https://www.apache.org/licenses/LICENSE-2.0"
 
    * - ``dashboard``
-     - No attributes
-     - Whether to show 'Dashboard' feature on the nav bar.
+     - Whether to show 'Dashboard' feature on the navigation bar.
      - .. container:: highlight
 
         .. parsed-literal::
@@ -174,8 +161,7 @@ Certain properties in the UI can be customized. The ``ui/server/config/themes/de
           "dashboard": true
 
    * - ``reports``
-     - No attributes
-     - Whether to show 'Reports' feature on the nav bar.
+     - Whether to show 'Reports' feature on the navigation bar.
      - .. container:: highlight
 
         .. parsed-literal::
@@ -183,8 +169,7 @@ Certain properties in the UI can be customized. The ``ui/server/config/themes/de
           "reports": true
 
    * - ``data-prep``
-     - No attributes
-     - Whether to show 'Preparation' feature on the nav bar.
+     - Whether to show 'Preparation' feature on the navigation bar.
      - .. container:: highlight
 
         .. parsed-literal::
@@ -192,8 +177,7 @@ Certain properties in the UI can be customized. The ``ui/server/config/themes/de
           "data-prep": true
 
    * - ``pipelines``
-     - No attributes
-     - Whether to show 'Pipelines' feature on the nav bar.
+     - Whether to show 'Pipelines' feature on the navigation bar.
      - .. container:: highlight
 
         .. parsed-literal::
@@ -201,8 +185,7 @@ Certain properties in the UI can be customized. The ``ui/server/config/themes/de
           "pipelines": true
 
    * - ``analytics``
-     - No attributes
-     - Whether to show 'Analytics' feature on the nav bar.
+     - Whether to show 'Analytics' feature on the navigation bar.
      - .. container:: highlight
 
         .. parsed-literal::
@@ -210,8 +193,7 @@ Certain properties in the UI can be customized. The ``ui/server/config/themes/de
           "analytics": true
 
    * - ``rules-engine``
-     - No attributes
-     - Whether to show 'Rules Engine' feature on the nav bar.
+     - Whether to show 'Rules Engine' feature on the navigation bar.
      - .. container:: highlight
 
         .. parsed-literal::
@@ -219,8 +201,7 @@ Certain properties in the UI can be customized. The ``ui/server/config/themes/de
           "rules-engine": true
 
    * - ``metadata``
-     - No attributes
-     - Whether to show 'Metadata' feature on the nav bar.
+     - Whether to show 'Metadata' feature on the navigation bar.
      - .. container:: highlight
 
         .. parsed-literal::
@@ -228,8 +209,7 @@ Certain properties in the UI can be customized. The ``ui/server/config/themes/de
           "metadata": true
 
    * - ``hub``
-     - No attributes
-     - Whether to show 'Hub' feature on the nav bar.
+     - Whether to show 'Hub' feature on the navigation bar.
      - .. container:: highlight
 
         .. parsed-literal::
@@ -237,7 +217,6 @@ Certain properties in the UI can be customized. The ``ui/server/config/themes/de
           "hub": true
 
    * - ``ingest-data``
-     - No attributes
      - Whether to show 'Ingest Data' feature in the Preparation app.
      - .. container:: highlight
 
@@ -247,7 +226,6 @@ Certain properties in the UI can be customized. The ``ui/server/config/themes/de
 
 
    * - ``add-namespace``
-     - No attributes
      - Whether the user can add a new namesace in the UI.
      - .. container:: highlight
 
@@ -257,7 +235,9 @@ Certain properties in the UI can be customized. The ``ui/server/config/themes/de
 
 .. highlight:: xml
 
-However, it is not recommended to overwrite values in ``default.json`` for customizations, since these values will be reverted when CDAP is upgraded. Instead of doing this, the user is encouraged to create their own theme file using this spec, and link to this file. To do so, add this property to ``cdap-site.xml``::
+It is not recommended to overwrite values in ``default.json`` for customizations, since these values will be reverted
+when CDAP is upgraded. Instead of this, users should create their own theme file using this spec, and link to this file.
+To do so, add this property to ``cdap-site.xml``::
 
     <property>
       <name>ui.theme.file</name>
@@ -268,4 +248,5 @@ However, it is not recommended to overwrite values in ``default.json`` for custo
     </property>
 
 
-After updating this property (or changing values in ``default.json``), the changes will be reflected in CDAP UI after CDAP is restarted.
+After updating this property (or changing values in ``default.json``), the changes will be reflected in CDAP UI after
+CDAP is restarted.
