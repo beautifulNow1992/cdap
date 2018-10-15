@@ -40,7 +40,7 @@ confirmed compatible.
 
 UI Customization
 ----------------
-Certain features in the UI can be customized. The ``ui/server/config/themes/default.json`` file contains these
+Certain features in the UI can be customized. The ``<CDAP_HOME>/ui/server/config/themes/default.json`` file contains these
 features, along with their default values. As of version 1.0, here is the list of features that can be customized,
 and their expected values:
 
@@ -98,8 +98,8 @@ and their expected values:
 
    * - ``product-logo-navbar``
      - The logo to be displayed on the navigation bar. Example formatting can be found at :ref:`Plugin Presentation:
-       Icon <plugins-presentation-icon>`. If ``type`` argument is ``link``, then ``url`` path should be from
-       ``ui/cdap_dist``
+       Icon <plugins-presentation-icon>`. If ``type`` argument is ``link``, then ``url`` value should be absolute path
+       from ``<CDAP_HOME>/ui/cdap_dist``
      - .. container:: highlight
 
         .. parsed-literal::
@@ -114,8 +114,8 @@ and their expected values:
 
    * - ``product-logo-about``
      - The logo to be displayed in the 'About' modal. Example formatting can be found at :ref:`Plugin Presentation:
-       Icon <plugins-presentation-icon>`. If ``type`` argument is ``link``, then ``url`` path should be from
-       ``ui/cdap_dist``
+       Icon <plugins-presentation-icon>`. If ``type`` argument is ``link``, then ``url`` value should be absolute path
+       from ``<CDAP_HOME>/ui/cdap_dist``
      - .. container:: highlight
 
         .. parsed-literal::
@@ -128,7 +128,7 @@ and their expected values:
           }
 
    * - ``favicon-path``
-     - Path to the image to be used as favicon.
+     - Path to the image to be used as favicon. Should be absolute path from ``<CDAP_HOME>/ui/cdap_dist``
      - .. container:: highlight
 
         .. parsed-literal::
