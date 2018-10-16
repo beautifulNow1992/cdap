@@ -97,9 +97,12 @@ and their expected values:
           integration, and data management."
 
    * - ``product-logo-navbar``
-     - The logo to be displayed on the navigation bar. Example formatting can be found at :ref:`Plugin Presentation:
-       Icon <plugins-presentation-icon>`. If ``type`` argument is ``link``, then ``url`` value should be absolute path
-       from ``<CDAP_HOME>/ui/cdap_dist``
+     - The logo to be displayed on the navigation bar. This can be specified using the `type` and `arguments` fields.
+       If value of ``type`` field is ``link``, then the user is expected to specify the path to the logo image in a
+       ``url`` attribute inside the ``arguments`` map, and this should be absolute path from
+       ``<CDAP_HOME>/ui/cdap_dist``. If value of ``type`` field is ``inline``, the user is expected to provide a base64
+       encoded image in a ``data`` attribute inside the ``arguments`` map. The image can be in any standard image format
+       e.g. PNG, JPEG, SVG etc.
      - .. container:: highlight
 
         .. parsed-literal::
@@ -113,9 +116,12 @@ and their expected values:
 
 
    * - ``product-logo-about``
-     - The logo to be displayed in the 'About' modal. Example formatting can be found at :ref:`Plugin Presentation:
-       Icon <plugins-presentation-icon>`. If ``type`` argument is ``link``, then ``url`` value should be absolute path
-       from ``<CDAP_HOME>/ui/cdap_dist``
+     - The logo to be displayed in the 'About' modal. This can be specified using the `type` and `arguments` fields.
+       If value of ``type`` field is ``link``, then the user is expected to specify the path to the logo image in a
+       ``url`` attribute inside the ``arguments`` map, and this should be absolute path from
+       ``<CDAP_HOME>/ui/cdap_dist``. If value of ``type`` field is ``inline``, the user is expected to provide a base64
+       encoded image in a ``data`` attribute inside the ``arguments`` map. The image can be in any standard image format
+       e.g. PNG, JPEG, SVG etc.
      - .. container:: highlight
 
         .. parsed-literal::
@@ -128,7 +134,8 @@ and their expected values:
           }
 
    * - ``favicon-path``
-     - Path to the image to be used as favicon. Should be absolute path from ``<CDAP_HOME>/ui/cdap_dist``
+     - Path to the image to be used as favicon. Should be absolute path from ``<CDAP_HOME>/ui/cdap_dist``. The image can
+       be in any standard image format e.g. PNG, JPEG, SVG etc.
      - .. container:: highlight
 
         .. parsed-literal::
