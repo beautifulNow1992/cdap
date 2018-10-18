@@ -83,8 +83,7 @@ public class MultiInputFormat<K, V> extends InputFormat<K, V> {
   public RecordReader<K, V> createRecordReader(InputSplit split,
                                                TaskAttemptContext context) throws IOException, InterruptedException {
     MultiInputTaggedSplit taggedInputSplit = (MultiInputTaggedSplit) split;
-    Job jobCopy = new Job(context.getConfiguration());
-    Configuration confCopy = jobCopy.getConfiguration();
+    Configuration confCopy = new Configuration(context.getConfiguration());
     ConfigurationUtil.setAll((taggedInputSplit).getInputConfigs(), confCopy);
     TaskAttemptContext taskAttemptContextCopy = new TaskAttemptContextImpl(confCopy, context.getTaskAttemptID(),
                                                                            new WrappedStatusReporter(context));

@@ -19,7 +19,6 @@ package co.cask.cdap.internal.app.runtime.batch.dataset.input;
 import co.cask.cdap.common.conf.ConfigurationUtil;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.mapreduce.InputSplit;
-import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.RecordReader;
 import org.apache.hadoop.mapreduce.TaskAttemptContext;
 import org.apache.hadoop.mapreduce.task.TaskAttemptContextImpl;
@@ -74,8 +73,7 @@ public class DelegatingRecordReader<K, V> extends RecordReader<K, V> {
     // We need to be sure not to pass the TaggedInputSplit to the underlying RecordReader. Otherwise, it can result
     // in ClassCastExceptions
     InputSplit inputSplit = ((TaggedInputSplit) split).getInputSplit();
-    Job jobCopy = new Job(context.getConfiguration());
-    Configuration confCopy = jobCopy.getConfiguration();
+    Configuration confCopy = new Configuration(context.getConfiguration());
     ConfigurationUtil.setAll(((MultiInputTaggedSplit) split).getInputConfigs(), confCopy);
     TaskAttemptContext taskAttemptContextCopy = new TaskAttemptContextImpl(confCopy, context.getTaskAttemptID(),
                                                                            new WrappedStatusReporter(context));
