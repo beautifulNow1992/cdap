@@ -26,7 +26,6 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.JobContext;
 import org.apache.hadoop.mapreduce.RecordReader;
 import org.apache.hadoop.mapreduce.TaskAttemptContext;
-import org.apache.hadoop.mapreduce.task.TaskAttemptContextImpl;
 import org.apache.hadoop.util.ReflectionUtils;
 
 import java.io.IOException;
@@ -83,16 +82,13 @@ public class MultiInputFormat<K, V> extends InputFormat<K, V> {
   public RecordReader<K, V> createRecordReader(InputSplit split,
                                                TaskAttemptContext context) throws IOException, InterruptedException {
     MultiInputTaggedSplit taggedInputSplit = (MultiInputTaggedSplit) split;
-    Configuration confCopy = new Configuration(context.getConfiguration());
-    ConfigurationUtil.setAll((taggedInputSplit).getInputConfigs(), confCopy);
-    TaskAttemptContext taskAttemptContextCopy = new TaskAttemptContextImpl(confCopy, context.getTaskAttemptID(),
-                                                                           new WrappedStatusReporter(context));
+    ConfigurationUtil.setAll((taggedInputSplit).getInputConfigs(), context.getConfiguration());
     InputFormat<K, V> inputFormat = (InputFormat<K, V>) ReflectionUtils.newInstance(
-      taggedInputSplit.getInputFormatClass(), confCopy);
+      taggedInputSplit.getInputFormatClass(), context.getConfiguration());
     InputSplit inputSplit = taggedInputSplit.getInputSplit();
     // we can't simply compute the underlying RecordReader and return it, because we need to override its
     // initialize method in order to initialize the underlying RecordReader with the underlying InputSplit
     // Find the InputFormat and then the RecordReader from the MultiInputTaggedSplit.
-    return new DelegatingRecordReader<>(inputFormat.createRecordReader(inputSplit, taskAttemptContextCopy));
+    return new DelegatingRecordReader<>(inputFormat.createRecordReader(inputSplit, context));
   }
 }

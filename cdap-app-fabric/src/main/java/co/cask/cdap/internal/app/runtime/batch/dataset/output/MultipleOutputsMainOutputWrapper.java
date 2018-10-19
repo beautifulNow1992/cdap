@@ -49,6 +49,14 @@ public class MultipleOutputsMainOutputWrapper<K, V> extends OutputFormat<K, V> {
   @Override
   public RecordWriter<K, V> getRecordWriter(TaskAttemptContext job) throws IOException, InterruptedException {
     OutputFormat<K, V> rootOutputFormat = getRootOutputFormat(job);
+    List<String> namedOutputsList = MultipleOutputs.getNamedOutputsList(job);
+    if (namedOutputsList != null && namedOutputsList.size() == 1) {
+      // CDAP-14524 remove prefixes added before each key. We only need this for single output because for single
+      // output rootoutput format is actual output format.
+      TaskAttemptContext namedContext = MultipleOutputs.getNamedTaskContext(job, namedOutputsList.get(0));
+      return rootOutputFormat.getRecordWriter(namedContext);
+    }
+    //
     return rootOutputFormat.getRecordWriter(job);
   }
 
@@ -107,24 +115,27 @@ public class MultipleOutputsMainOutputWrapper<K, V> extends OutputFormat<K, V> {
       Map<String, OutputCommitter> delegates = new LinkedHashMap<>();
 
       List<String> namedOutputsList = MultipleOutputs.getNamedOutputsList(context);
+      TaskAttemptContext namedContext = context;
       // if there is only 1 output configured, it is the same as the root OutputFormat, so no need to have it also in
       // the delegates; otherwise, its methods would get called more than expected.
       // If more than 1 outputs are configured, then the root OutputCommitter is a NullOutputCommitter (no-op).
       // See MapReduceRuntimeService#setOutputsIfNeeded.
-      if (namedOutputsList.size() > 1) {
-        for (String name : namedOutputsList) {
+      for (String name : namedOutputsList) {
+        // CDAP-14524 remove prefixes added before each key
+        namedContext = MultipleOutputs.getNamedTaskContext(context, name);
+        if (namedOutputsList.size() > 1) {
           Class<? extends OutputFormat> namedOutputFormatClass =
             MultipleOutputs.getNamedOutputFormatClass(context, name);
 
-          TaskAttemptContext namedContext = MultipleOutputs.getNamedTaskContext(context, name);
           OutputFormat<K, V> outputFormat =
             ReflectionUtils.newInstance(namedOutputFormatClass, namedContext.getConfiguration());
           delegates.put(name, outputFormat.getOutputCommitter(namedContext));
         }
       }
+
       // return a MultipleOutputsCommitter that commits for the root output format as well as all delegate outputformats
-      committer = new MainOutputCommitter(getRootOutputFormat(context).getOutputCommitter(context), delegates,
-                                          context);
+      committer = new MainOutputCommitter(getRootOutputFormat(namedContext).getOutputCommitter(namedContext),
+                                          delegates, namedContext);
     }
     return committer;
   }
